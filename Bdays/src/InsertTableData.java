@@ -147,31 +147,22 @@ public class InsertTableData
       // get current date
      
       Time time = new Time();
-      String currentDate = time.getDate();
-      String[] breakDate = currentDate.split(":");
-      String shortDate = breakDate[0] + "/" + breakDate[1];
+      String currentDate = time.getShortDate();
+      
       
       String sql ="SELECT * FROM INFO WHERE BIRTHDAY";
       ResultSet test = stmt.executeQuery(sql);
-      ArrayList<String> dates = new ArrayList<String>();
+      String[] temp;
       while(test.next()){
-    	  String str1 = test.getString(2);
-    	  dates.add(str1);
-      }
-      ArrayList<String> newDates = new ArrayList<String>();
-      for(int i=0; i<dates.size(); i++){
-    	  String current = dates.get(i);
-    	  String[] date = current.split("/");
-    	  String newDate = date[0] + date[1];
-    	  newDates.add(newDate);
-      }
-      
-      for(int j = 0; j<newDates.size(); j++){
-    	  String theDate = newDates.get(j);
-    	  if(theDate.equals(shortDate)){
-    		  String sql2 = "SELECT * FROM INFO WHERE BIRTHDAY"
+    	  String str2 = test.getString(2);
+    	  String str1 = test.getString(1);
+    	  temp = str1.split("/");
+    	  str1 = temp[0]+ "/" + temp[1];
+    	  if(str1.equals(currentDate)){
+    		  System.out.println(str2);
     	  }
       }
+      
 
 
       stmt.close();
